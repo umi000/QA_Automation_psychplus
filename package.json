@@ -1,0 +1,29 @@
+{
+  "name": "hacker-news-playwright-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation tests for Hacker News",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:homepage": "playwright test tests/homepage-validation.spec.js",
+    "test:sorting": "playwright test tests/sorting-validation.spec.js",
+    "test:navigation": "playwright test tests/navigation-workflow.spec.js",
+    "test:pagination": "playwright test tests/pagination.spec.js"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "hacker-news"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0"
+  }
+}

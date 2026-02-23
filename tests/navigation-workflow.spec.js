@@ -21,17 +21,15 @@ test.describe('Navigation Workflow', () => {
       const newPageUrl = newPage.url();
       expect(newPageUrl, 'New page should have a valid URL').toBeTruthy();
       await newPage.close();
+      await page.goto('https://news.ycombinator.com');
+      await homePage.waitForStoriesToLoad();
     } else {
-      await page.waitForLoadState('networkidle');
-      if (!page.url().includes('news.ycombinator.com')) {
+      await page.waitForLoadState('domcontentloaded', { timeout: 5000 }).catch(() => {});
+      const currentUrl = page.url();
+      if (!currentUrl.includes('news.ycombinator.com') || currentUrl.includes('/item')) {
         await page.goBack();
         await homePage.waitForStoriesToLoad();
       }
-    }
-    
-    if (!page.url().includes('news.ycombinator.com') || page.url().includes('/item')) {
-      await page.goto('https://news.ycombinator.com');
-      await homePage.waitForStoriesToLoad();
     }
     
     await expect(page.locator(homePage.storyList)).toBeVisible();
@@ -79,17 +77,15 @@ test.describe('Navigation Workflow', () => {
       const externalUrl = newPage.url();
       expect(externalUrl, 'External link should open').toBeTruthy();
       await newPage.close();
+      await page.goto('https://news.ycombinator.com');
+      await homePage.waitForStoriesToLoad();
     } else {
-      await page.waitForLoadState('networkidle');
-      if (!page.url().includes('news.ycombinator.com') || page.url().includes('/item')) {
+      await page.waitForLoadState('domcontentloaded', { timeout: 5000 }).catch(() => {});
+      const currentUrl = page.url();
+      if (!currentUrl.includes('news.ycombinator.com') || currentUrl.includes('/item')) {
         await page.goBack();
         await homePage.waitForStoriesToLoad();
       }
-    }
-    
-    if (!page.url().includes('news.ycombinator.com') || page.url().includes('/item')) {
-      await page.goto('https://news.ycombinator.com');
-      await homePage.waitForStoriesToLoad();
     }
     
     await homePage.clickCommentsLink(1);
